@@ -1,0 +1,1412 @@
+package com.myspace.ceptest;
+
+
+
+import fraud.analysis.demo.transaction.Transaction;
+
+
+declare Transaction @role( event )  @timestamp( txnTS ) end
+rule 'Multi stage rule 1'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 10000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 1 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 2'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 20000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 2 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 3'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 30000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 3 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 4'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 40000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 4 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 5'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 50000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 5 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 6'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 60000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 6 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 7'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 70000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 7 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 8'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 80000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 8 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 9'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 90000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 9 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 10'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 100000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 10 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 11'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 110000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 11 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 12'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 120000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 12 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 13'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 130000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 13 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 14'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 140000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 14 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 15'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 150000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 15 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 16'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 160000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 16 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 17'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 170000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 17 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 18'
+when
+  curr: CurrentTxn(pos in ('9100','01'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 180000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 18 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 19'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 10000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 19 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 20'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 20000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 20 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 21'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 30000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 21 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 22'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 40000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 22 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 23'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 50000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 23 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 24'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 60000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 24 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 25'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 70000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 25 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 26'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 80000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 26 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 27'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 90000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 27 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 28'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 100000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 28 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 29'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 110000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 29 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 30'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 120000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 30 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 31'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 130000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 31 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 32'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 140000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 32 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 33'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 150000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 33 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 34'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 160000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 34 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 35'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 170000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 35 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 36'
+when
+  curr: CurrentTxn(pos in ('8100','02'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 180000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (1440m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 36 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 37'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 10000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 37 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 38'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 20000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 38 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 39'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 30000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 39 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 40'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 40000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 40 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 41'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 50000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 41 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 42'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 60000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 42 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 43'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 70000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 43 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 44'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 80000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 44 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 45'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 90000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 45 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 46'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 100000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 46 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 47'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 110000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 47 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 48'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 120000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 48 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 49'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 130000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 49 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 50'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 140000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 50 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 51'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 150000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 51 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 52'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 160000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 52 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 53'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 170000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 53 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 54'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 180000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 54 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 55'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 10000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 55 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 56'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 20000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 56 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 57'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 30000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 57 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 58'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 40000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 58 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 59'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 50000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 59 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 60'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 60000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 60 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 61'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 70000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 61 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 62'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 80000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 62 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 63'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 90000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 63 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 64'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 100000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 64 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 65'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 110000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 65 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 66'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 120000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 66 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 67'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 130000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 67 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 68'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 140000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 68 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 69'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 150000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 69 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 70'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 160000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 70 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 71'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 170000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 71 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 72'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '6100', txnAmt >= 180000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 72 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 73'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 10000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 73 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 74'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 20000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 74 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 75'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 30000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 75 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 76'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 40000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 76 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 77'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 50000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 77 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 78'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 60000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 78 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 79'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 70000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 79 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 80'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 80000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 80 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 81'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 90000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 81 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 82'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 100000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 82 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 83'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 110000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 83 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 84'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 120000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 84 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 85'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 130000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 85 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 86'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 140000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 86 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 87'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 150000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 87 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 88'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 160000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 88 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 89'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 170000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 89 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 90'
+when
+  curr: CurrentTxn(pos in ('7100','03'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 180000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,72h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 90 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 91'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 10000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 91 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 92'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 20000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 92 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 93'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 30000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 93 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 94'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 40000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 94 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 95'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 50000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 95 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 96'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 60000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 96 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 97'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 70000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 97 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 98'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 80000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 98 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 99'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 90000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 99 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 100'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 100000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 100 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 101'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 110000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 101 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 102'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 120000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 102 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 103'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 130000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 103 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 104'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 140000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 104 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 105'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 150000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 105 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 106'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 160000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 106 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 107'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 170000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 107 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end
+rule 'Multi stage rule 108'
+when
+  curr: CurrentTxn(pos in ('6100','04'))
+  accumulate ($cct: Transaction(pos == '1001', txnAmt >= 180000, this.cardNumber == curr.cardNumber) over window:time (10m) from entry-point Reference;
+    $list: collectList($cct))
+  $c: Transaction(this.txnAmt >= (0.9*curr.txnAmt), this.cardNumber == curr.cardNumber) from $list
+  $t: Transaction(txnType == 'cardReissue', this before[0h,144h] $c, this.cardNumber == curr.cardNumber) over window:time (2880m) from entry-point Reference
+then
+  CEPFraud cepFraud = new CEPFraud();
+  cepFraud.setTransactionId(curr.getTransactionId());
+  cepFraud.setFraudReason('Flagged tx based on mutli-stage rule 108 for ' + curr.getCardNumber());
+  insert(cepFraud);
+end

@@ -1,0 +1,22 @@
+package com.myspace.ceptest;
+
+import fraud.analysis.demo.transaction.*;
+
+rule "cleanup" salience -9999
+
+when
+curr: CurrentTxn()
+then
+retract(curr);
+end
+
+
+rule "first" salience 9999
+
+when
+curr: CurrentTxn()
+cepFraud: CEPFraud(curr.transactionId != cepFraud.transactionId)
+then
+retract(cepFraud);
+
+end
